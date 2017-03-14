@@ -673,37 +673,43 @@ class Habakiri_Customizer {
 	public function register_styles() {
 		$rgb_header_bg_color = $this->hex_to_rgb( Habakiri::get( 'header_bg_color' ) );
 
-		$this->Customizer_Framework->register_styles(
-			'a',
-			sprintf( 'color: %s', Habakiri::get( 'link_color' ) )
-		);
+		if ( Habakiri::get( 'link_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				'a',
+				sprintf( 'color: %s', Habakiri::get( 'link_color' ) )
+			);
+		}
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'a:focus',
-				'a:active',
-				'a:hover',
-			),
-			array(
-				sprintf( 'color: %s', Habakiri::get( 'link_hover_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'link_hover_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'a:focus',
+					'a:active',
+					'a:hover',
+				),
+				array(
+					sprintf( 'color: %s', Habakiri::get( 'link_hover_color' ) ),
+				)
+			);
+		}
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.site-branding a',
-			),
-			array(
-				sprintf( 'color: %s', Habakiri::get( 'logo_text_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'logo_text_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.site-branding a',
+				),
+				array(
+					sprintf( 'color: %s', Habakiri::get( 'logo_text_color' ) ),
+				)
+			);
+		}
 
 		$this->Customizer_Framework->register_styles(
 			array(
 				'.responsive-nav a',
 			),
 			array(
-				sprintf( 'color: %s', Habakiri::get( 'gnav_link_color' ) ),
+				Habakiri::get( 'gnav_link_color' ) ? sprintf( 'color: %s', Habakiri::get( 'gnav_link_color' ) ) : '',
 				sprintf( 'font-size: %spx', Habakiri::get( 'gnav_fontsize' ) ),
 			)
 		);
@@ -713,25 +719,27 @@ class Habakiri_Customizer {
 				'.responsive-nav a small',
 			),
 			array(
-				sprintf( 'color: %s', Habakiri::get( 'gnav_sub_label_color' ) ),
+				Habakiri::get( 'gnav_sub_label_color' ) ? sprintf( 'color: %s', Habakiri::get( 'gnav_sub_label_color' ) ) : '',
 				sprintf( 'font-size: %spx', Habakiri::get( 'gnav_sub_label_fontsize' ) ),
 			)
 		);
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.responsive-nav a:hover small',
-				'.responsive-nav a:active small',
-				'.responsive-nav .current-menu-item small',
-				'.responsive-nav .current-menu-ancestor small',
-				'.responsive-nav .current-menu-parent small',
-				'.responsive-nav .current_page_item small',
-				'.responsive-nav .current_page_parent small',
-			),
-			array(
-				sprintf( 'color: %s', Habakiri::get( 'gnav_sub_label_hover_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'gnav_sub_label_hover_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.responsive-nav a:hover small',
+					'.responsive-nav a:active small',
+					'.responsive-nav .current-menu-item small',
+					'.responsive-nav .current-menu-ancestor small',
+					'.responsive-nav .current-menu-parent small',
+					'.responsive-nav .current_page_item small',
+					'.responsive-nav .current_page_parent small',
+				),
+				array(
+					sprintf( 'color: %s', Habakiri::get( 'gnav_sub_label_hover_color' ) ),
+				)
+			);
+		}
 
 		$gnav_link_bg_color = Habakiri::get( 'gnav_link_bg_color' );
 		if ( $this->hex_to_rgb( $gnav_link_bg_color ) == $rgb_header_bg_color ) {
@@ -743,7 +751,7 @@ class Habakiri_Customizer {
 				'.header--transparency.header--fixed--is_scrolled .responsive-nav .menu>.menu-item>a',
 			),
 			array(
-				sprintf( 'background-color: %s', $gnav_link_bg_color ),
+				$gnav_link_bg_color ? sprintf( 'background-color: %s', $gnav_link_bg_color ) : '',
 				sprintf( 'padding: %dpx %dpx', Habakiri::get( 'gnav_link_vertical_padding' ), Habakiri::get( 'gnav_link_horizontal_padding' ) ),
 			)
 		);
@@ -770,8 +778,8 @@ class Habakiri_Customizer {
 				'.header--transparency.header--fixed--is_scrolled .responsive-nav .menu>.current_page_parent>a',
 			),
 			array(
-				sprintf( 'background-color: %s', $gnav_link_bg_hover_color ),
-				sprintf( 'color: %s', Habakiri::get( 'gnav_link_hover_color' ) ),
+				$gnav_link_bg_hover_color ? sprintf( 'background-color: %s', $gnav_link_bg_hover_color ) : '',
+				Habakiri::get( 'gnav_link_hover_color' ) ? sprintf( 'color: %s', Habakiri::get( 'gnav_link_hover_color' ) ) : '',
 			)
 		);
 
@@ -780,8 +788,8 @@ class Habakiri_Customizer {
 				'.responsive-nav .sub-menu a',
 			),
 			array(
-				sprintf( 'background-color: %s', Habakiri::get( 'gnav_pulldown_bg_color' ) ),
-				sprintf( 'color: %s', Habakiri::get( 'gnav_pulldown_link_color' ) ),
+				Habakiri::get( 'gnav_pulldown_bg_color' ) ? sprintf( 'background-color: %s', Habakiri::get( 'gnav_pulldown_bg_color' ) ) : '',
+				Habakiri::get( 'gnav_pulldown_link_color' ) ? sprintf( 'color: %s', Habakiri::get( 'gnav_pulldown_link_color' ) ) : '',
 			)
 		);
 
@@ -796,8 +804,8 @@ class Habakiri_Customizer {
 				'.responsive-nav .sub-menu .current_page_parent a',
 			),
 			array(
-				sprintf( 'background-color: %s', Habakiri::get( 'gnav_pulldown_bg_hover_color' ) ),
-				sprintf( 'color: %s', Habakiri::get( 'gnav_pulldown_link_hover_color' ) ),
+				Habakiri::get( 'gnav_pulldown_bg_hover_color' ) ? sprintf( 'background-color: %s', Habakiri::get( 'gnav_pulldown_bg_hover_color' ) ) : '',
+				Habakiri::get( 'gnav_pulldown_link_hover_color' ) ? sprintf( 'color: %s', Habakiri::get( 'gnav_pulldown_link_hover_color' ) ) : '',
 			)
 		);
 
@@ -814,15 +822,17 @@ class Habakiri_Customizer {
 		if ( $this->hex_to_rgb( $gnav_bg_color ) == $rgb_header_bg_color ) {
 			$gnav_bg_color = 'transparent';
 		}
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.responsive-nav',
-				'.header--transparency.header--fixed--is_scrolled .responsive-nav',
-			),
-			array(
-				sprintf( 'background-color: %s', $gnav_bg_color ),
-			)
-		);
+		if ( $gnav_bg_color ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.responsive-nav',
+					'.header--transparency.header--fixed--is_scrolled .responsive-nav',
+				),
+				array(
+					sprintf( 'background-color: %s', $gnav_bg_color ),
+				)
+			);
+		}
 
 		$hamburger_btn_bg_color           = Habakiri::get( 'hamburger_btn_bg_color' );
 		$hamburger_btn_border_color       = Habakiri::get( 'hamburger_btn_border_color' );
@@ -845,9 +855,9 @@ class Habakiri_Customizer {
 				'#responsive-btn',
 			),
 			array(
-				sprintf( 'background-color: %s', $hamburger_btn_bg_color ),
-				sprintf( 'border-color: %s', $hamburger_btn_border_color ),
-				sprintf( 'color: %s', Habakiri::get( 'hamburger_btn_text_color' ) ),
+				$hamburger_btn_bg_color ? sprintf( 'background-color: %s', $hamburger_btn_bg_color ) : '',
+				$hamburger_btn_border_color ? sprintf( 'border-color: %s', $hamburger_btn_border_color ) : '',
+				Habakiri::get( 'hamburger_btn_text_color' ) ? sprintf( 'color: %s', Habakiri::get( 'hamburger_btn_text_color' ) ) : '',
 			)
 		);
 		$this->Customizer_Framework->register_styles(
@@ -855,24 +865,26 @@ class Habakiri_Customizer {
 				'#responsive-btn:hover',
 			),
 			array(
-				sprintf( 'background-color: %s', $hamburger_btn_bg_hover_color ),
-				sprintf( 'border-color: %s', $hamburger_btn_border_hover_color ),
-				sprintf( 'color: %s', Habakiri::get( 'hamburger_btn_text_hover_color' ) ),
+				$hamburger_btn_bg_hover_color ? sprintf( 'background-color: %s', $hamburger_btn_bg_hover_color ) : '',
+				$hamburger_btn_border_hover_color  ? sprintf( 'border-color: %s', $hamburger_btn_border_hover_color ) : '',
+				Habakiri::get( 'hamburger_btn_text_hover_color' ) ? sprintf( 'color: %s', Habakiri::get( 'hamburger_btn_text_hover_color' ) ) : '',
 			)
 		);
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.habakiri-slider__transparent-layer',
-			),
-			array(
-				sprintf(
-					'background-color: rgba( %s, %s )',
-					implode( ',', $this->hex_to_rgb( Habakiri::get( 'slider_option_overlay_color' ) ) ),
-					1 - Habakiri::get( 'slider_option_overlay_opacity' ) / 100
+		if ( Habakiri::get( 'slider_option_overlay_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.habakiri-slider__transparent-layer',
 				),
-			)
-		);
+				array(
+					sprintf(
+						'background-color: rgba( %s, %s )',
+						implode( ',', $this->hex_to_rgb( Habakiri::get( 'slider_option_overlay_color' ) ) ),
+						1 - Habakiri::get( 'slider_option_overlay_opacity' ) / 100
+					),
+				)
+			);
+		}
 
 		if ( Habakiri::get( 'slider_option_height' ) ) {
 			$this->Customizer_Framework->register_styles(
@@ -892,97 +904,109 @@ class Habakiri_Customizer {
 				'.page-header',
 			),
 			array(
-				sprintf( 'background-color: %s', Habakiri::get( 'page_header_bg_color' ) ),
-				sprintf( 'color: %s', Habakiri::get( 'page_header_text_color' ) ),
+				Habakiri::get( 'page_header_bg_color' ) ? sprintf( 'background-color: %s', Habakiri::get( 'page_header_bg_color' ) ) : '',
+				Habakiri::get( 'page_header_text_color' ) ? sprintf( 'color: %s', Habakiri::get( 'page_header_text_color' ) ) : '',
 			)
 		);
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.pagination>li>a',
-			),
-			array(
-				sprintf( 'color: %s', Habakiri::get( 'link_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'link_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.pagination>li>a',
+				),
+				array(
+					sprintf( 'color: %s', Habakiri::get( 'link_color' ) ),
+				)
+			);
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.pagination>li>span',
-			),
-			array(
-				sprintf( 'background-color: %s', Habakiri::get( 'link_color' ) ),
-				sprintf( 'border-color: %s', Habakiri::get( 'link_color' ) ),
-			)
-		);
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.pagination>li>span',
+				),
+				array(
+					sprintf( 'background-color: %s', Habakiri::get( 'link_color' ) ),
+					sprintf( 'border-color: %s', Habakiri::get( 'link_color' ) ),
+				)
+			);
+		}
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.pagination>li>a:focus',
-				'.pagination>li>a:hover',
-				'.pagination>li>span:focus',
-				'.pagination>li>span:hover',
-			),
-			array(
-				sprintf( 'color: %s', Habakiri::get( 'link_hover_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'link_hover_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.pagination>li>a:focus',
+					'.pagination>li>a:hover',
+					'.pagination>li>span:focus',
+					'.pagination>li>span:hover',
+				),
+				array(
+					sprintf( 'color: %s', Habakiri::get( 'link_hover_color' ) ),
+				)
+			);
+		}
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.header',
-			),
-			array(
-				sprintf( 'background-color: %s', Habakiri::get( 'header_bg_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'header_bg_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.header',
+				),
+				array(
+					sprintf( 'background-color: %s', Habakiri::get( 'header_bg_color' ) ),
+				)
+			);
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.header--transparency.header--fixed--is_scrolled',
-			),
-			array(
-				sprintf( 'background-color: %s !important', Habakiri::get( 'header_bg_color' ) ),
-			)
-		);
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.header--transparency.header--fixed--is_scrolled',
+				),
+				array(
+					sprintf( 'background-color: %s !important', Habakiri::get( 'header_bg_color' ) ),
+				)
+			);
+		}
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.footer',
-			),
-			array(
-				sprintf( 'background-color: %s', Habakiri::get( 'footer_bg_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'footer_bg_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.footer',
+				),
+				array(
+					sprintf( 'background-color: %s', Habakiri::get( 'footer_bg_color' ) ),
+				)
+			);
+		}
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.footer-widget-area a',
-			),
-			array(
-				sprintf( 'color: %s', Habakiri::get( 'footer_link_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'footer_link_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.footer-widget-area a',
+				),
+				array(
+					sprintf( 'color: %s', Habakiri::get( 'footer_link_color' ) ),
+				)
+			);
+		}
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.footer-widget-area',
-				'.footer-widget-area .widget_calendar #wp-calendar caption',
-			),
-			array(
-				sprintf( 'color: %s', Habakiri::get( 'footer_text_color' ) ),
-			)
-		);
+		if ( Habakiri::get( 'footer_text_color' ) ) {
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.footer-widget-area',
+					'.footer-widget-area .widget_calendar #wp-calendar caption',
+				),
+				array(
+					sprintf( 'color: %s', Habakiri::get( 'footer_text_color' ) ),
+				)
+			);
 
-		$this->Customizer_Framework->register_styles(
-			array(
-				'.footer-widget-area .widget_calendar #wp-calendar',
-				'.footer-widget-area .widget_calendar #wp-calendar *',
-			),
-			array(
-				sprintf( 'border-color: %s', Habakiri::get( 'footer_text_color' ) ),
-			)
-		);
+			$this->Customizer_Framework->register_styles(
+				array(
+					'.footer-widget-area .widget_calendar #wp-calendar',
+					'.footer-widget-area .widget_calendar #wp-calendar *',
+				),
+				array(
+					sprintf( 'border-color: %s', Habakiri::get( 'footer_text_color' ) ),
+				)
+			);
+		}
 
 		if ( $gnav_breakpoint = Habakiri::get_gnav_breakpoint() ) {
 			$this->Customizer_Framework->register_styles(

@@ -73,11 +73,15 @@ class Habakiri_Customizer_Framework {
 		$selectors = $this->remove_white_spaces( $selectors );
 		$selectors = preg_replace( '/,+/', ',', $selectors );
 
+		$properties = array_filter($properties, 'strlen');
 		if ( is_array( $properties ) ) {
 			$properties = implode( ';', $properties );
 		}
 		$properties = $this->remove_white_spaces( $properties );
 		$properties = preg_replace( '/;+/', ';', $properties );
+		if ( ! $properties ) {
+		  return;
+		}
 
 		if ( $max_width && !$min_width ) {
 			$key = $max_width . ',';
